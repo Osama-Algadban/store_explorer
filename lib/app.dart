@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:store_explorer/core/managers/themes_manager/theme_controller/theme_wrapper.dart';
 import 'package:store_explorer/core/managers/themes_manager/themes_manager.dart';
 import 'package:store_explorer/core/shared/extensions/context_extension.dart';
+import 'package:store_explorer/features/main_router_page/MainRouterPage.dart';
 
 class App extends StatelessWidget {
   App._internal();
@@ -35,11 +36,7 @@ class App extends StatelessWidget {
                       child: child!,
                     );
                   },
-                  home: const Scaffold(
-                    body: Center(
-                      child: Text('مرحباً بك في تطبيق تمكين'),
-                    ),
-                  ),
+                  home: MainRouterPage()
                 );
               },
             ),

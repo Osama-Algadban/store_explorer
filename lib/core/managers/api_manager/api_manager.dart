@@ -97,7 +97,7 @@ class ApiManagerImpl implements ApiManager {
 
       throw AppException(
         code: ExceptionCode.apiManager,
-        message: serverMessage ?? "t.exceptions.yourRequestIsNotCompletedEXP",
+        message: serverMessage ?? "exceptions your Request Is Not Completed",
       );
 
     } catch (e) {
