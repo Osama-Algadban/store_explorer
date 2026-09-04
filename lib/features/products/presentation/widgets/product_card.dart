@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:store_explorer/core/shared/widgets/favorite_button.dart';
 import 'package:store_explorer/features/products/domain/entity/products_entity.dart';
-import 'package:store_explorer/features/products/presentation/widgets/favorite_button.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductsEntity product;

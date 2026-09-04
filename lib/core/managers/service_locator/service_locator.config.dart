@@ -12,8 +12,19 @@
 
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:store_explorer/core/managers/api_manager/api_manager.dart'
     as _i408;
+import 'package:store_explorer/core/managers/bloc_favorite/favorite_bloc.dart'
+    as _i377;
+import 'package:store_explorer/features/favorite/data/data_sources/favorite_local_data_source.dart'
+    as _i986;
+import 'package:store_explorer/features/favorite/data/repositories/favorite_repository_impl.dart'
+    as _i483;
+import 'package:store_explorer/features/favorite/domain/repositories/favorite_repository.dart'
+    as _i1025;
+import 'package:store_explorer/features/favorite/domain/use_cases/favorite_use_case.dart'
+    as _i889;
 import 'package:store_explorer/features/products/data/data_sources/products_remote_data_source.dart'
     as _i851;
 import 'package:store_explorer/features/products/data/repositories/products_repository_impl.dart'
@@ -41,7 +52,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i851.ProductsRemoteDataSource>(
       () => _i851.ProductsRemoteDataSourceImpl(),
     );
-    gh.factory<_i356.ProductsBloc>(
+    gh.lazySingleton<_i356.ProductsBloc>(
       () => _i356.ProductsBloc(
         gh<_i1046.ProductsUseCases>(),
         gh<_i882.ProductsSearchUseCases>(),
@@ -50,6 +61,22 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i408.ApiManager>(() => _i408.ApiManagerImpl());
     gh.lazySingleton<_i804.ProductsRepository>(
       () => _i676.ProductsRepositoryImpl(gh<_i851.ProductsRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i986.FavoriteLocalDataSource>(
+      () => _i986.FavoriteLocalDataSourceImpl(
+        sharedPreferences: gh<_i460.SharedPreferences>(),
+      ),
+    );
+    gh.lazySingleton<_i1025.FavoriteRepository>(
+      () => _i483.FavoriteRepositoryImpl(
+        localDataSource: gh<_i986.FavoriteLocalDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i889.FavoriteUseCases>(
+      () => _i889.FavoriteUseCases(gh<_i1025.FavoriteRepository>()),
+    );
+    gh.lazySingleton<_i377.FavoriteBloc>(
+      () => _i377.FavoriteBloc(gh<_i889.FavoriteUseCases>()),
     );
     return this;
   }

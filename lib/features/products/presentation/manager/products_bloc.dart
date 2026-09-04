@@ -14,7 +14,7 @@ part 'products_event.dart';
 part 'products_state.dart';
 part 'products_bloc.freezed.dart';
 
-@injectable
+@lazySingleton
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   final ProductsUseCases productsUseCases;
   final ProductsSearchUseCases productsSearchUseCases;

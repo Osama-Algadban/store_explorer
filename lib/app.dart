@@ -5,7 +5,7 @@ import 'package:store_explorer/core/shared/extensions/context_extension.dart';
 import 'package:store_explorer/features/main_router_page/MainRouterPage.dart';
 
 class App extends StatelessWidget {
-  App._internal();
+  const App._internal();
 
   static App instance = App._internal();
 
