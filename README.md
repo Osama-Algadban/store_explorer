@@ -1,3 +1,6 @@
+إليك ملف `README.md` جاهز للنسخ واللصق، حيث قمت بدمج محتوى المشروع الخاص بك مع القالب الافتراضي لـ Flutter الذي طلبته:
+
+```markdown
 # store_explorer
 
 A new Flutter project.
@@ -8,10 +11,80 @@ This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+---
+
+## تفاصيل المشروع (Project Details)
+
+### ⏱️ الوقت الفعلي المستغرق
+استغرق إنجاز هذا المشروع **3 ساعات و 40 دقيقة**.
+
+### 🏗️ البنية المعمارية المختارة (Architecture)
+**الاختيار:** Feature-based Architecture (بنية قائمة على الميزات) متوافقة مع مبادئ الـ Clean Architecture.
+
+**لماذا؟**
+اخترت هذه البنية لأنني أردت أن يكون تنظيم المشروع مبنياً على الـ Business Features وليس على نوع الملفات فقط. في المشاريع التي تحتوي على عدة ميزات (مثل Products, Products_details, Favorite)، فإن وضع جميع الـ screens في مجلد، والـ blocs في مجلد آخر، والـ repositories في مجلد ثالث، يجعل الميزة الواحدة موزعة على أجزاء كثيرة من المشروع ويصعب تتبعها.
+
+أما باستخدام Feature-based structure، فأصبحت كل feature تحتوي على الـ presentation والـ domain والـ data الخاصة بها، وبالتالي أصبحت كل ميزة أقرب إلى وحدة مستقلة (Module) يسهل صيانتها وتطويرها.
+
+### 🧠 إدارة الحالة (State Management)
+**الاختيار:** BLoC (flutter_bloc).
+
+**لماذا؟**
+اخترت BLoC لفصل الـ UI عن منطق الأعمال (Business Logic) بشكل واضح. في هذا المشروع، الـ UI لا يقوم بتنفيذ المنطق أو التعامل مباشرة مع مصدر البيانات، وإنما يرسل Events إلى الـ BLoC، والـ BLoC يتعامل مع الـ Use Cases ويصدر States جديدة، والـ UI يستجيب لهذه الـ States.
+
+اخترت BLoC تحديداً لأنه يعتمد على Events و States، وهذا يجعل تدفق البيانات واضحاً ويمكن التنبؤ به، خصوصاً في الحالات التي تحتوي على أكثر من حالة مثل (loading, success, error, pagination). بالإضافة إلى ذلك، BLoC يتناسب بشكل ممتاز مع الـ Clean Architecture، حيث أُبقي الـ presentation layer مسؤولة عن إدارة الحالة والتفاعل مع الـ UI، بينما تبقى الـ business logic داخل الـ domain.
+
+### 🚧 المهام غير المنجزة وخطة إكمالها
+نظراً لضيق الوقت، لم أتمكن من إكمال الميزات التالية، وهذه خطة تنفيذها لو توفر وقت أكبر:
+
+1. **التخزين المؤقت (Caching) لعرض البيانات عند انقطاع الإنترنت:**
+   * **السبب:** عدم توفر الوقت الكافي لتعلم وتطبيق مكتبة Hive.
+   * **خطة الإكمال:** كان من الممكن استخدام `shared_preferences` لتخزين البيانات البسيطة، أو استخدام `flutter_secure_storage` إذا كانت البيانات حساسة. وبالنسبة للبيانات المعقدة والهياكل الكبيرة، فإن استخدام Hive كان سيكون الخيار الأمثل لتخزين الصفحة الأولى محلياً وعرضها عند فقدان الاتصال.
+
+2. **اختبارات الواجهة (Widget Tests):**
+   * **السبب:** معرفتي النظرية بالـ Widget Tests متوسطة، واحتجت وقتاً لتطبيقها.
+   * **خطة الإكمال:** كنت سأنشئ ملفاً لاختبار الويدجت (Widget Test) وأقوم باختبار جميع الحالات (Edge cases) المحتملة. رغم أنني عالجت غالب الحالات في الكود، إلا أن كتابة اختبارات تضمن عدم تكسير الواجهة مستقبلاً ضرورية. يمكن الاستعانة بالـ AI لكتابة الأكواد الأولية للاختبارات، مع التدقيق والمراجعة الشخصية لها.
+
+3. **الوضع الليلي (Dark Mode):**
+   * **السبب:** ضيق الوقت.
+   * **خطة الإكمال:** نظام الـ Theme Manager موجود لدي ويدعم النظامين الليلي والنهاري. كان تبقى لي فقط إضافة زر تبديل (Toggle) في الـ UI، وربط حالة الـ Theme في الـ Main لتغيير الألوان باستخدام الفنكشنز التي قمت بإنشائها مسبقاً في المشروع.
+
+4. **Skeleton أثناء التحميل:**
+   * **السبب:** ضيق الوقت.
+   * **خطة الإكمال:** كنت سأستخدم مكتبة `skeletonizer` مع بيانات وهمية (Mock data) تحاكي شكل البيانات الحقيقية في القائمة، لتقديم تجربة مستخدم أفضل من مؤشر الدوران (Spinner) العادي.
+
+### 📚 المكتبات الخارجية المستخدمة والأسباب
+
+* **`flutter_bloc` & `bloc`**: لإدارة حالة التطبيق وفصل منطق الأعمال عن الـ UI، مما يجعل الكود قابلاً للاختبار والصيانة، ويتعامل بوضوح مع حالات Loading و Success و Failure.
+* **`bloc_concurrency`**: توفر Event Transformers للتحكم بكيفية تنفيذ أحداث الـ BLoC عندما تصل عدة Events في نفس الوقت.
+* **`get_it`**: Service Locator لتسجيل الـ dependencies والوصول إليها من أي مكان بدون الحاجة لإنشائها يدوياً (Dependency Injection).
+* **`injectable` & `injectable_generator`**: لتوليد كود الـ Dependency Injection تلقائياً بدلاً من كتابته يدوياً لـ `get_it`.
+* **`equatable`**: لتسهيل مقارنة الكائنات (Objects) في دارت، مما يحسن أداء BLoC في مقارنة الـ States.
+* **`dio`**: لتراسل طلبات الـ API وأخذ الاستجابات من السيرفر بقوة ومرونة.
+* **`pretty_dio_logger`**: للتعاون مع Dio ورؤية تفاصيل طلبات واستجابات HTTP بشكل مرتب أثناء الـ Debugging.
+* **`dartz`**: للتعامل مع الأخطاء (Error Handling) بأسلوب برمجي وظيفي باستخدام `Either` (نُعيد `Failure` في حالة الخطأ أو البيانات في حالة النجاح) بدلاً من `try/catch` التقليدي في الـ Repositories.
+* **`toastification`**: لعرض إشعارات مؤقتة للمستخدم (نجاح، خطأ بالإنترنت، تحذير). اخترتها لمرونتها في التحكم بمكان ومدة الظهور. (لو توفر الوقت كنت سأضيف زر إعادة المحاولة داخل الإشعار نفسه).
+* **`logger`**: لتتبع الأخطاء أثناء التطوير وتقديم سجلات (Logs) احترافية بدلاً من استخدام `print`.
+* **`shared_preferences`**: لتخزين بيانات صغيرة وبسيطة محلياً على الجهاز (غير حساسة).
+* **`freezed` & `freezed_annotation`**: لتعريف الـ Models/Classes بطريقة آمنة وأقل تكراراً (Immutability).
+* **`json_annotation` & `json_serializable`**: للمساعدة في توليد أكواد تحويل البيانات من وإلى JSON.
+* **`intl`**: كان الهدف استخدامها لتنسيق العملات ودعم الترجمة، ولكن لضيق الوقت تم إلغاؤها (كان البديل المخطط له استخدام بكج `slang` لتوليد ملفات الترجمة من JSON).
+* **`flutter_lints`**: لتطبيق قواعد فحص الكود (Lint Rules) الموصى بها في Flutter (مثل التنبيه لمتغيرات غير مستخدمة).
+* **`build_runner`**: المحرك المسؤول عن تشغيل أوامر الـ Generators وتوليد الملفات لباقي المكتبات.
+* **`flutter_gen_runner`**: لتوليد Dart classes للوصول إلى الـ Assets والـ Fonts بشكل type-safe بدلاً من كتابة المسارات كـ Strings.
+
+### 🤖 الاستعانة بأدوات الذكاء الاصطناعي (AI)
+نعم، تمت الاستعانة بعدة أدوات ذكاء اصطناعي لتسريع العملية وتطوير الأفكار، وذلك على النحو التالي:
+
+1. **Antigravity Agent**: تم إعطاؤه برومبت (Prompt) طويل ومفصل يوضح الخطوات المطلوبة بناءً على كود `products` الذي كتبته مسبقاً. قام بإنشاء ملفات (Entity, Model, Repository, UseCase) الخاصة بـ `products_details`. *ملاحظة: قمت بمراجعة الكود المُولد بالكامل للتأكد من صحته 100% وتطابقه مع معايير المشروع.*
+2. **ChatGPT**: استخدمته للمناقشة وتبادل الأفكار، ومساعدتي في صياغة برومبت احترافي لاستخدامه في الـ Antigravity Agent.
+3. **GLM**: استخدمته أيضاً للنقاش في بعض الأفكار المعمارية والبرمجية.
+4. **Google AI Studio**: على غير العادة، استخدمته لتصميم واجهة المستخدم (UI) بشكل سريع لتوفير الوقت نظراً للضغط الزمني.
+```
