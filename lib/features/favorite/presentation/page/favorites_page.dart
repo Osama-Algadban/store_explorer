@@ -5,6 +5,7 @@ import 'package:store_explorer/core/managers/service_locator/service_locator.dar
 import 'package:store_explorer/core/shared/widgets/main_loader.dart';
 import 'package:store_explorer/features/products/presentation/manager/products_bloc.dart';
 import 'package:store_explorer/features/products/presentation/widgets/product_card.dart';
+import 'package:store_explorer/features/products_details/presentation/page/product_details_Page.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -88,6 +89,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           return ProductCard(
                             product: product,
                             isFavorite: isFav,
+                            onProductTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailsPage(
+                                    productId: product.id,
+                                  ),
+                                ),
+                              );
+                            },
                             onFavoriteTap: () {
                               context.read<FavoriteBloc>().add(
                                 FavoriteEvent.removeFavoriteId(product.id.toString()),

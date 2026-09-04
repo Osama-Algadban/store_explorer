@@ -9,6 +9,7 @@ import 'package:store_explorer/core/shared/widgets/no_search_result.dart';
 import 'package:store_explorer/core/shared/widgets/search_text_field.dart';
 import 'package:store_explorer/features/products/presentation/manager/products_bloc.dart';
 import 'package:store_explorer/features/products/presentation/widgets/product_card.dart';
+import 'package:store_explorer/features/products_details/presentation/page/product_details_Page.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -197,6 +198,16 @@ class _ProductsPageState extends State<ProductsPage> {
                                         return ProductCard(
                                           product: product,
                                           isFavorite: isFav,
+                                          onProductTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ProductDetailsPage(
+                                                  productId: product.id,
+                                                ),
+                                              ),
+                                            );
+                                          },
                                           onFavoriteTap: () {
                                             if (isFav) {
                                               context.read<FavoriteBloc>().add(

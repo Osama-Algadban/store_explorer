@@ -37,6 +37,16 @@ import 'package:store_explorer/features/products/domain/use_cases/products_use_c
     as _i1046;
 import 'package:store_explorer/features/products/presentation/manager/products_bloc.dart'
     as _i356;
+import 'package:store_explorer/features/products_details/data/data_sources/product_details_remote_data_source.dart'
+    as _i828;
+import 'package:store_explorer/features/products_details/data/repositories/product_details_repository_impl.dart'
+    as _i61;
+import 'package:store_explorer/features/products_details/domain/repositories/product_details_repository.dart'
+    as _i830;
+import 'package:store_explorer/features/products_details/domain/use_cases/product_details_use_cases.dart'
+    as _i964;
+import 'package:store_explorer/features/products_details/presentation/manager/products_details_bloc.dart'
+    as _i637;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -52,6 +62,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i851.ProductsRemoteDataSource>(
       () => _i851.ProductsRemoteDataSourceImpl(),
     );
+    gh.lazySingleton<_i830.ProductDetailsRepository>(
+      () => _i61.ProductDetailsRepositoryImpl(
+        gh<_i828.ProductDetailsRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i828.ProductDetailsRemoteDataSource>(
+      () => _i828.ProductDetailsRemoteDataSourceImpl(),
+    );
     gh.lazySingleton<_i356.ProductsBloc>(
       () => _i356.ProductsBloc(
         gh<_i1046.ProductsUseCases>(),
@@ -66,6 +84,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i986.FavoriteLocalDataSourceImpl(
         sharedPreferences: gh<_i460.SharedPreferences>(),
       ),
+    );
+    gh.lazySingleton<_i964.ProductDetailsUseCases>(
+      () => _i964.ProductDetailsUseCases(gh<_i830.ProductDetailsRepository>()),
+    );
+    gh.factory<_i637.ProductsDetailsBloc>(
+      () => _i637.ProductsDetailsBloc(gh<_i964.ProductDetailsUseCases>()),
     );
     gh.lazySingleton<_i1025.FavoriteRepository>(
       () => _i483.FavoriteRepositoryImpl(
